@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Engineering and Management</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: left;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .additional-content {
+            position: relative;
+            z-index: 1;
+            color: black;
+            text-align: left;
+            padding: 20px;
+            background: rgb(247, 243, 243);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .ranking-section {
+            background-color: white;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .header-strip {
+            background-color: #f8ea2f;
+            height: 10px;
+            width: 100%;
+        }
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .ranking-item img {
+            max-width: 150px;
+            margin: 10px;
+        }
+        .ranking-item h3 {
+            font-size: 1.2em;
+            margin: 0;
+        }
+        .ranking-item p {
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        .content h1, .additional-content h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .content h2, .additional-content h2 {
+            font-size: 2em;
+            margin: 0;
+        }
+        .content h3, .additional-content h3 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        .content p, .additional-content p {
+            font-size: 1.5em;
+            margin: 10px 0 20px;
+        }
+
+        .content a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #f8ea2f;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        #top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+        }
+        #top-bar img {
+            height: 40px;
+            vertical-align: middle;
+        }
+        #top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div id="top-bar">
+        <img id="logo" src="Logo.png" alt="Logo" />
+        <a id="hs-link" href="https://www.hs-pforzheim.de/" target="_blank">To HSPF</a>
+    </div>
+    <video autoplay muted loop class="video-background">
+        <source src="your-video-file.mp4" type="video/mp4">
+        Ihr Browser unterstützt kein HTML5-Video.
+    </video>
+
+    <div class="content">
+        <h1>Master Engineering and Management: Your future as an innovator begins here!</h1>
+        <p>Secure your future with the Master's program in Engineering and Management at Pforzheim University!
+            Combine technical expertise with business management know-how and prepare yourself for leadership 
+            positions in the industry. Benefit from hands-on projects, state-of-the-art facilities, and an excellent network.
+            Become part of one of Germany's leading universities and shape the innovations of tomorrow!</p>
+        <p>Apply now and kick-start your career!</p>
+        <a href="chatbot.html" class="button">Ask our Chatbot</a>
+    </div>
+
+    <div class="header-strip"></div>
+    <div class="additional-content">
+        <h2>General Information about the Program</h2>
+        <br>
+        <p1>The program offers Bachelor graduates in Industrial Engineering an internationally-oriented, generalist qualification.</p1><br>
+        
+        <h3>Broad Interdisciplinary Offerings</h3>
+        <p1>In addition to a well-coordinated curriculum, students can select from a wide range of elective modules, allowing them to tailor their studies through exciting projects. Sharpen your interdisciplinary profile by choosing from the content of the Master's programs offered by our three faculties: Engineering, Business and Law, and Design!</p1><br>
+        
+        <h3>Practical and Personalized</h3>
+        <p1>You will learn in small groups, prepare seminars and workshops, and engage in practice-oriented project work. This approach ensures you achieve an excellent level of professional training, tailored to meet the current demands of companies. It prepares you for positions in product management, procurement, project management, production, or controlling.</p1><br>
+        
+        <h3>International Orientation</h3>
+        <p1>Depending on the individual selection of courses, the second semester can largely be completed in English—an ideal preparation for roles in an international context.</p1>
+    </div>
+
+    <div class="header-strip"></div>
+    <div class="ranking-section">
+        <h2>Our Rankings</h2>
+        <div class="ranking-item">
+            <img src="ranking1.png" alt="Ranking 1">
+            <div>
+                <h3>Ranking Results StudyCheck:</h3>
+                <p>HS PF Among the Most Popular Universities Nationwide. With nine out of ten possible points, Pforzheim University (HS PF) has once again secured a spot in the top three of the "Most Popular Universities with 5,000 to 15,000 Students" category in the latest StudyCheck ranking. This ranking is based on the average ratings given by students and alumni in 2022 and the recommendation rate for their respective universities.</p>
+            </div>
+        </div>
+        <div class="ranking-item">
+            <div>
+                <h3>StudyCheck Category Award 2022 - Pforzheim University: One of Germany's Most Popular Universities</h3>
+                <p>With nine out of ten possible points, Pforzheim University has landed in the top three of the "Most Popular Universities with 5,000 to 15,000 Students" category in the 2022 StudyCheck ranking. This ranking is based on the average ratings given by students and alumni in 2021 and the recommendation rate for their respective universities.</p>
+            </div>
+            <img src="ranking2.png" alt="Ranking 2">
+        </div>
+        <div class="ranking-item">
+            <img src="ranking3.png" alt="Ranking 3">
+            <div>
+                <h3>U-Multirank 2021: HS PF Once Again Among Top Performers</h3>
+                <p>Pforzheim University has been highly rated in the U-Multirank 2021 due to its strong regional business connections and close collaboration with numerous industry partners. The university received nine top ratings, particularly in the categories of knowledge transfer, regional engagement, and international orientation. Notably, Pforzheim University ranks among the top 25 universities worldwide in the "Publications with Industry Partners" category, underscoring its exceptional practical orientation and confirming its reputation as a global top performer.</p>
+            </div>
+        </div>
+        <div class="ranking-item">
+            <div>
+                <h3>WirtschaftsWoche - Germany's Best Universities 2020 - Industrial Engineering</h3>
+                <p>The ranking by the German business magazine "WirtschaftsWoche" (WiWo) confirms that graduates from Pforzheim University's Industrial Engineering programs are highly sought after by employers. For the third consecutive year in 2020, the Industrial Engineering programs have maintained their position within the top ten nationwide.</p>
+                <p>In 2020, Pforzheim University ranked ninth among the best universities for Industrial Engineering in Germany. The program is characterized by its integration of business, technology, and methodological competencies, providing students with skills in engineering, information technology, business, and law.</p>
+                <p>"German HR managers have consistently rated our graduates among the top in the country. This recognition not only honors our efforts but also motivates us to continuously improve our education and adapt our curriculum to market and technological developments," said Prof. Dr.-Ing. Matthias Weyer, Dean of the Faculty of Engineering at Pforzheim University.</p>
+                <p>In collaboration with the market research firm Universum Communications, "WirtschaftsWoche" regularly conducts a ranking that focuses on practical relevance. The survey centers on the skills imparted to students during their studies, as reported by up to 650 HR managers.</p>
+            </div>
+            <img src="ranking4.png" alt="Ranking 4">
+        </div>
+        <div class="ranking-item">
+            <img src="ranking5.png" alt="Ranking 5">
+            <div>
+                <h3>CHE University Ranking 2020 - Industrial Engineering in Pforzheim Again at the Top</h3>
+                <p>Pforzheim University's Industrial Engineering programs have once again achieved excellent results in the CHE University Ranking 2020. The programs are highly rated by students in all key criteria, including overall study situation, support in studies, teaching offerings, and practical relevance. According to Professor Uwe Dittmann, Head of the Industrial Engineering Department, the interdisciplinary content, modern teaching methods, and a highly motivated team prepare students exceptionally well for professional practice, opening up diverse career opportunities.</p>
+                <p>In 2017, Pforzheim's Industrial Engineering programs achieved top results, particularly in the "International Orientation" category. "As the first and only AACSB-accredited University of Applied Sciences in Germany, we are committed to collaborating closely with international partners and encouraging as many students as possible to study abroad," said Prof. Dr.-Ing. Matthias Weyer, Dean of the Faculty of Engineering.</p>
+            </div>
+        </div>
+        <div class="ranking-item">
+            <div>
+                <h3>Pforzheim University is among the top European universities in terms of teaching and research quality, as confirmed by the U-Multirank results.</h3>
+                <p>The European Commission's ranking evaluates and compares around 1,500 universities based on key figures and student surveys.</p>
+                <p>In the U-Multirank announcement, Pforzheim University is referred to as a "hidden gem university," recognized for making academic knowledge and research exceptionally accessible and beneficial to society.</p>
+            </div>
+            <img src="ranking6.png" alt="Ranking 6">
+        </div>
+        <div class="ranking-item">
+            <img src="ranking7.png" alt="Ranking 7">
+            <div>
+                <h3>StudyCheck University Ranking 2018</h3>
+                <p>With four out of five stars and a 94% recommendation rate, Pforzheim University was the most popular university in Baden-Württemberg and ranked among the top ten nationwide.</p>
+                <p>The StudyCheck University Ranking considered over 45,000 reviews from current students and alumni from the 2017 calendar year.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

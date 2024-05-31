@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+        }
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: whitesmoke;
+            background-size: cover;
+            filter: grayscale(40%);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .video-overlay video {
+            width: 80%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .hidden {
+            display: none;
+        }
+        .content {
+            display: none; /* Initially hidden */
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .content.visible {
+            display: block; /* Display content when visible */
+        }
+        #top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+        }
+        #top-bar img {
+            height: 40px;
+            vertical-align: middle;
+        }
+        #top-bar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            vertical-align: middle;
+            font-weight: 500;
+        }
+        #chat-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            background: rgba(147, 139, 123, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(103, 67, 4, 0.938);
+            text-align: center;
+            color: #333;
+        }
+        #chat-container video {
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        #chat-box {
+            margin-top: 10px;
+        }
+        #chat-box #messages {
+            height: 200px;
+            overflow-y: auto;
+            background: #f7f7f7;
+            color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        #chat-box #messages .user-message {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        #chat-box #messages .user-message .message {
+            display: inline-block;
+            background: #007BFF;
+            color: white;
+            padding: 10px;
+            border-radius: 20px;
+            max-width: 70%;
+        }
+        #chat-box #messages .bot-message {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        #chat-box #messages .bot-message .message {
+            display: inline-block;
+            background: #E5E5EA;
+            color: #333;
+            padding: 10px;
+            border-radius: 20px;
+            max-width: 70%;
+        }
+        #chat-box .input-container {
+            display: flex;
+            align-items: center;
+        }
+        #chat-box input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        #chat-box button {
+            padding: 10px 15px;
+            border: none;
+            background: #bcbfc1;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        #chat-box button:hover {
+            background: #5a6067;
+        }
+        #microphone-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            vertical-align: middle;
+            outline: none;
+            padding: 0;
+        }
+        #microphone-button img {
+            width: 24px;
+            height: 24px;
+        }
+        #faq-button {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            background-color: #5a6067;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        #faq-box {
+            position: fixed;
+            bottom: 50px;
+            left: 10px;
+            background-color: rgba(60, 60, 60, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        #faq-box ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #faq-box ul li {
+            padding: 10px 0;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+        }
+        #faq-box ul li:hover {
+            color: #007BFF;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-overlay" onclick="playVideo()">
+        <video id="intro-video">
+            <source src="peter.mp4" type="video/mp4">
+            Ihr Browser unterstützt kein HTML5-Video.
+        </video>
+    </div>
+    <video autoplay muted loop class="video-background">
+        <source src="your-video-file.mp4" type="video/mp4">
+        Ihr Browser unterstützt kein HTML5-Video.
+    </video>
+
+    <div class="content" id="main-content">
+        <div id="top-bar">
+            <img id="logo" src="Logo.png" alt="Logo" />
+            <div>
+                <a id="application" href="https://campus.hs-pforzheim.de/qisserver/pages/cs/sys/portal/hisinoneStartPage.faces" target="_blank">Application</a>
+                <a id="back-link" href="index.html">Back</a>
+            </div>
+        </div>
+        <div id="chat-container">
+            <video id="avatar-video" src="Chatbot_Video.mp4" type="video/mp4" muted class="hidden"></video>
+            <div id="chat-box">
+                <div id="messages"></div>
+                <div class="input-container">
+                    <input type="text" id="user-input" placeholder="Schreiben Sie hier..." />
+                    <button onclick="sendMessage()">Send</button>
+                    <button id="microphone-button" onclick="startRecording()"><img src="mikro.png" alt="Mikrofon"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button und Kasten für häufig gestellte Fragen -->
+    <button id="faq-button" onclick="toggleFAQ()">Most asked questions</button>
+    <div id="faq-box" class="hidden">
+        <ul>
+            <li onclick="askQuestion('What are the requirements for students?')">What are the requirements for students?</li>
+            <li onclick="askQuestion('How is the balance between theoretical knowledge and practical application managed in the program?')">How is the balance between theoretical knowledge and practical application managed in the program?</li>
+            <li onclick="askQuestion('What are the opportunities for engaging in research projects or collaborations with industry partners during the course of study?')">What are the opportunities for engaging in research projects or collaborations with industry partners during the course of study?</li>
+            <li onclick="askQuestion('How flexible is the program in terms of elective courses and specialization tracks?')">How flexible is the program in terms of elective courses and specialization tracks?</li>
+        </ul>
+    </div>
+
+    <script>
+        const video = document.getElementById('intro-video');
+        const mainContent = document.getElementById('main-content');
+        const videoOverlay = document.querySelector('.video-overlay');
+        const avatarVideo = document.getElementById('avatar-video');
+        const faqBox = document.getElementById('faq-box');
+
+        function playVideo() {
+            video.play();
+            videoOverlay.style.cursor = 'default';
+            videoOverlay.onclick = null;
+        }
+
+        video.onended = function() {
+            videoOverlay.classList.add('hidden');
+            mainContent.classList.add('visible');
+        };
+
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput) {
+                // Display user message
+                const messages = document.getElementById('messages');
+                const userMessage = document.createElement('div');
+                userMessage.className = 'user-message';
+                userMessage.innerHTML = `<div class="message">${userInput}</div>`;
+                messages.appendChild(userMessage);
+
+                // Simulate chatbot answering time
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'bot-message';
+                    botMessage.innerHTML = `<div class="message">${userInput}</div>`;
+                    messages.appendChild(botMessage);
+
+                    // Verbal response
+                    speak(botMessage.textContent);
+                }, 500); // Simulate 0.5 second answer time
+            }
+        }
+
+        function speak(text) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = text;
+            msg.lang = 'de-DE'; // Sprache auf Deutsch setzen
+            msg.voice = speechSynthesis.getVoices().find(voice => voice.lang === 'de-DE' && voice.name.includes('Google')); // Stimme auswählen (anpassen falls nötig)
+            msg.onstart = function(event) {
+                avatarVideo.play();
+                avatarVideo.classList.remove('hidden');
+            };
+            msg.onend = function(event) {
+                avatarVideo.pause();
+                avatarVideo.classList.add('hidden');
+                console.log('Finished in ' + event.elapsedTime + ' seconds.');
+            };
+            speechSynthesis.speak(msg);
+        }
+
+        function toggleFAQ() {
+            faqBox.classList.toggle('hidden');
+        }
+
+        function askQuestion(question) {
+            document.getElementById('user-input').value = question;
+            sendMessage();
+            faqBox.classList.add('hidden');
+        }
+
+        // Stimmen laden, um sicherzustellen, dass die gewünschte Stimme verfügbar ist
+        window.speechSynthesis.onvoiceschanged = function() {
+            const voices = speechSynthesis.getVoices();
+            console.log('Available voices:', voices);
+        };
+
+        // Sprachaufnahme
+        function startRecording() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = 'de-DE'; // Setzt die Sprache auf Deutsch
+
+                recognition.start();
+
+                recognition.onresult = (event) => {
+                    const speechResult = event.results[0][0].transcript;
+                    document.getElementById('user-input').value = speechResult;
+                    sendMessage();
+                };
+
+                recognition.onerror = (event) => {
+                    console.error('Speech recognition error', event);
+                };
+            } else {
+                alert('Web Speech API wird in diesem Browser nicht unterstützt. Bitte verwenden Sie Google Chrome.');
+            }
+        }
+    </script>
+</body>
+</html>
+
